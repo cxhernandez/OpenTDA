@@ -25,7 +25,8 @@ def buildGraph(raw_data, epsilon = 3.1, metric=euclidianDist): #raw_data is a nu
 def lower_nbrs(nodeSet, edgeSet, node):
     return {x for x in nodeSet if {x,node} in edgeSet and node > x}
 
-def rips(nodes, edges, k):
+def rips(graph, k):
+    nodes, edges = graph[0:2]
     VRcomplex = [{n} for n in nodes]
     for e in edges: #add 1-simplices (edges)
         VRcomplex.append(e)
@@ -39,7 +40,7 @@ def rips(nodes, edges, k):
 
 def drawComplex(origData, ripsComplex, axes=[-6,8,-6,6]):
   plt.clf()
-  plt.axis(axes) #axes = [x1, x2, y1, y2]
+  plt.axis(axes)
   plt.scatter(origData[:,0],origData[:,1]) #plotting just for clarity
   for i, txt in enumerate(origData):
       plt.annotate(i, (origData[i][0]+0.05, origData[i][1])) #add labels
